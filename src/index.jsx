@@ -8,6 +8,19 @@ function SelectedItems(props) {
   );
 }
 
+function CheckList(props) {
+  return (
+    <div>
+    {props.pr_state.map((i, index) =>
+      <div className="input-group">
+      <label>{i}</label>
+      <input type="checkbox" value={i} onChange={props.pr_onChange} />
+      </div>
+    )}   
+    </div>
+  );
+}
+
 class RkCheckToggle1 extends React.Component {
   constructor(props) {
     super(props)
@@ -45,13 +58,10 @@ class RkCheckToggle1 extends React.Component {
       <div>
 
         <form>
-          {this.state.items.map((i, index) =>
-            <div className="input-group">
-            <label>{i}</label>
-            <input type="checkbox" value={i} onChange={this.toggleSelected} />
-          </div>
-          )}           
+          <CheckList pr_state={this.state.items}
+          pr_onChange={this.toggleSelected} />       
         </form>
+
         <SelectedItems pr_selectedItems={this.state.selectedItems} />
 
       </div>
