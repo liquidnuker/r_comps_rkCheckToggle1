@@ -1,0 +1,59 @@
+.col-sm-2 {
+  height: 60px;
+}
+
+.checkToggle1-01 {
+  @extend %display--block;
+  // @include center-both; // for preview only
+  width: 126px;
+  
+  input[type=checkbox]{
+    height: 0;
+    width: 0;
+    display: none;
+  }
+
+  .checkToggle1-01_vlabel {
+    vertical-align: text-top;
+  }
+
+  .checkToggle1-01_bg {
+    @extend %pos--relative;
+    @extend %display--inline-block;
+    @include border-radius(50);
+    background-color: #666;
+    width: 40px;
+  }
+
+  .checkToggle1-01_switch {
+    @extend %display--inline-block;
+    @include border-radius(50);
+    background-color: blue;
+    height: 20px;
+    width: 20px;
+    transition: 0.1s;
+  }
+
+  input:checked ~ .checkToggle1-01_bg {
+    background-color: pink;
+  }
+
+  input:checked ~ .checkToggle1-01_bg >.checkToggle1-01_switch {
+    margin-left: 20px;
+    // left: calc(100%);
+    // transform: translateX(100%);
+  }
+
+  // input:checked ~ .checkToggle1-01_vlabel:after {
+  //    content: 'on';
+  // }
+
+  // disabled
+  input:disabled ~ .checkToggle1-01_bg {
+    background-color: #ccc;
+  }
+
+  input:disabled ~ .checkToggle1-01_bg >.checkToggle1-01_switch {
+    background-color: #eee; 
+  }
+}

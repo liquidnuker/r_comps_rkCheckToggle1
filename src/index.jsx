@@ -12,10 +12,17 @@ function CheckList(props) {
   return (
     <div>
     {props.pr_state.map((i, index) =>
-      <div className="input-group">
-      <label>{i}</label>
-      <input type="checkbox" value={i} onChange={props.pr_onChange} />
-      </div>
+    <span className="checkToggle1-01">
+      <input type="checkbox" id={i} value={i} onChange={props.pr_onChange} />
+      <label htmlFor={i} className="checkToggle1-01_bg">
+        <span className="checkToggle1-01_switch">
+          &nbsp;
+        </span>
+      </label>   
+      <label htmlFor={i} className="checkToggle1-01_vlabel">
+          {i}
+      </label>   
+    </span>
     )}   
     </div>
   );
@@ -38,6 +45,7 @@ class RkCheckToggle1 extends React.Component {
 
   // methods
   toggleSelected(event) {
+    console.log(event.target.id);
     const selectedItems = this.state.selectedItems;
     let index;
 
