@@ -1,5 +1,5 @@
 .col-sm-2 {
-  height: 60px;
+  @extend %padd--4;
 }
 
 .checkToggle1-01 {
