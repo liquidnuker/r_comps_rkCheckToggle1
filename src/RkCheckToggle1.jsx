@@ -59,7 +59,6 @@ export default class RkCheckToggle1 extends React.Component {
 
   // methods
   toggleSelected(event) {
-    console.log(event.target.id);
     const selectedItems = this.state.selectedItems;
     let index;
 
@@ -76,7 +75,23 @@ export default class RkCheckToggle1 extends React.Component {
   }
 
   checkAll() {
-    console.log("checkall");
+    let items = this.state.items;
+    let selectedItems = this.state.selectedItems;
+    
+    let x = document.querySelectorAll("input");
+    for (let i of x) {
+      i.checked = true;
+    }
+
+    selectedItems = [];
+    for (let i in items) {
+      selectedItems.push(items[i]);
+    }
+    console.log(selectedItems);
+
+    this.setState(prevState => ({
+      selectedItems: selectedItems
+    }));
   }
 
   unCheckAll() {
