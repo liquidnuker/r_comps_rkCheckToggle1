@@ -87,15 +87,24 @@ export default class RkCheckToggle1 extends React.Component {
     for (let i in items) {
       selectedItems.push(items[i]);
     }
-    console.log(selectedItems);
-
+    
     this.setState(prevState => ({
       selectedItems: selectedItems
     }));
   }
 
   unCheckAll() {
-    console.log("uncheckall");
+    let selectedItems = this.state.selectedItems;
+    
+    let x = document.querySelectorAll("input");
+    for (let i of x) {
+      i.checked = false;
+    }
+
+    selectedItems = [];
+    this.setState(prevState => ({
+      selectedItems: selectedItems
+    }));
   }
 
   render() {
