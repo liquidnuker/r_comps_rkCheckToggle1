@@ -1,16 +1,13 @@
-function Btn_Checkall(props) {
+function Btn_Toggle(props) {
   return (
-    <button onClick={props.pr_onClick}>
-      Check All
-    </button>
-  );
-}
-
-function Btn_UnCheckAll(props) {
-  return (
-    <button onClick={props.pr_onClick}>
-      Uncheck All
-    </button>
+    <div>
+      <button onClick={props.pr_checkAll}>
+        Check All
+      </button> 
+      <button onClick={props.pr_unCheckAll}>
+        Uncheck All
+      </button>
+    </div>
   );
 }
 
@@ -74,34 +71,26 @@ export default class RkCheckToggle1 extends React.Component {
     })
   }
 
-  checkAll() {
+  toggleCheck(checked) {
     let items = this.state.items;
     let selectedItems = this.state.selectedItems;
     
     let x = document.querySelectorAll("input");
+    
     for (let i of x) {
-      i.checked = true;
+      i.checked = checked;
     }
 
-    selectedItems = [];
-    for (let i in items) {
-      selectedItems.push(items[i]);
+    // push / empty selectedItems
+    if (checked) {
+      selectedItems = [];
+      for (let i in items) {
+        selectedItems.push(items[i]);
+      }      
+    } else {
+      selectedItems = [];
     }
     
-    this.setState(prevState => ({
-      selectedItems: selectedItems
-    }));
-  }
-
-  unCheckAll() {
-    let selectedItems = this.state.selectedItems;
-    
-    let x = document.querySelectorAll("input");
-    for (let i of x) {
-      i.checked = false;
-    }
-
-    selectedItems = [];
     this.setState(prevState => ({
       selectedItems: selectedItems
     }));
@@ -115,10 +104,10 @@ export default class RkCheckToggle1 extends React.Component {
           <CheckList pr_state={this.state.items}
           pr_onChange={this.toggleSelected} />       
         </form>
-
-        <Btn_Checkall pr_onClick={() => { this.checkAll() }} />
-        <Btn_UnCheckAll pr_onClick={() => { this.unCheckAll() }} />
-
+        
+        <Btn_Toggle pr_checkAll={() => { this.toggleCheck(true) }}
+        pr_unCheckAll={() => { this.toggleCheck(false) }} />
+        
         <SelectedItems pr_selectedItems={this.state.selectedItems} />
 
       </div>
