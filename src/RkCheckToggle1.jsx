@@ -1,10 +1,10 @@
 function Btn_Toggle(props) {
   return (
     <div>
-      <button onClick={props.pr_checkAll}>
+      <button id="checkAll" onClick={props.pr_checkAll} disabled={props.pr_checkDisabled}>
         Check All
       </button> 
-      <button onClick={props.pr_unCheckAll}>
+      <button id="unCheckAll" onClick={props.pr_unCheckAll}>
         Uncheck All
       </button>
     </div>
@@ -69,6 +69,8 @@ export default class RkCheckToggle1 extends React.Component {
     this.setState({ 
       selectedItems: selectedItems 
     })
+
+    this.watch();
   }
 
   toggleCheck(checked) {
@@ -94,6 +96,18 @@ export default class RkCheckToggle1 extends React.Component {
     this.setState(prevState => ({
       selectedItems: selectedItems
     }));
+
+    this.watch();
+  }
+
+  // watcher
+  watch() {
+    let btn_checkAll = document.getElementById("checkAll");
+    let btn_unCheckAll = document.getElementById("unCheckAll");
+    let items = this.state.items;
+    let selectedItems = this.state.selectedItems;
+
+    
   }
 
   render() {
