@@ -14,7 +14,7 @@ function Btn_Toggle(props) {
 function SelectedItems(props) {
   return (
     <div>
-      <p>Selected: [{props.pr_selectedItems}]</p>
+      <p>Selected: {props.pr_selectedItems}</p>
     </div>
   );
 }
@@ -53,27 +53,44 @@ export default class RkCheckToggle1 extends React.Component {
     // binders
     this.toggleSelected = this.toggleSelected.bind(this);
   }
+  componentDidMount() {
+    // this.watch();
+    // this.toggleCheck(true);
+  }
 
-  // methods
+  indexFinder(value, arr) {
+    // returns index else undefined
+    for (var key = 0; key < arr.length; key++) {
+      if (arr[key] === value) {
+        return key;
+      }
+    }
+  };
+  
   toggleSelected(event) {
-    const selectedItems = this.state.selectedItems;
-    let index;
+    let selectedItems = this.state.selectedItems;
 
     if (event.target.checked) {
-      selectedItems.push(event.target.value)
+      console.log("checked push");
+      
+      // todo: check if existing
+      if (this.indexFinder(event.target.value, selectedItems) !== undefined) {
+        // console.log();
+      } else {
+
+      }
+
     } else {
-      index = selectedItems.indexOf(event.target.value)
-      selectedItems.splice(index, 1)
+      console.log("unchecked");
     }
 
-    this.setState({ 
-      selectedItems: selectedItems 
-    })
-
-    this.watch();
+    // this.setState({
+    //   selectedItems: [selectedItems]
+    // }); 
   }
 
   toggleCheck(checked) {
+    // this.watch();
     let items = this.state.items;
     let selectedItems = this.state.selectedItems;
     
@@ -97,17 +114,31 @@ export default class RkCheckToggle1 extends React.Component {
       selectedItems: selectedItems
     }));
 
-    this.watch();
+    
   }
 
   // watcher
   watch() {
-    let btn_checkAll = document.getElementById("checkAll");
-    let btn_unCheckAll = document.getElementById("unCheckAll");
-    let items = this.state.items;
-    let selectedItems = this.state.selectedItems;
+    // let btn_checkAll = document.getElementById("checkAll");
+    // let btn_unCheckAll = document.getElementById("unCheckAll");
+    // let items = this.state.items;
+    // let selectedItems = this.state.selectedItems;
 
-    
+    // console.log(items.length + " " + selectedItems.length);
+
+    // // for checkAllButton
+    // if (selectedItems.length === items.length) {
+    //   btn_checkAll.disabled = true;
+    // } else {
+    //   btn_checkAll.disabled = false;
+    // }
+
+    // // for unCheckAllButton
+    // if (selectedItems.length === 0) {
+    //   btn_unCheckAll.disabled = true;
+    // } else {
+    //   btn_unCheckAll.disabled = false;
+    // }    
   }
 
   render() {

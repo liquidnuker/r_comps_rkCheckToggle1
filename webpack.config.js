@@ -2,15 +2,16 @@ const path = require('path');
 const webpack = require('webpack');
 const Promise = require('es6-promise').Promise;
 
+const glob = require('glob-all');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const PurifyCSSPlugin = require('purifycss-webpack');
 const extractCSS = new ExtractTextPlugin('../[name].bundle.css');
 
 module.exports = {
   context: path.resolve(__dirname, './src'),
-  entry: {
-    index: './index.jsx'
-    // vendor: ['jquery', 'lodash']
-  },
+  // Map, Set, requestAnimationFrame <IE11 polyfill
+  // entry: ['babel-polyfill', './index.jsx'],
+  entry: ['./index.jsx'],
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: "dist/",
@@ -53,7 +54,18 @@ module.exports = {
     ReactDOM: 'react-dom'
   },
   plugins: [
-    extractCSS
+    extractCSS,
+    new PurifyCSSPlugin({
+      // Give paths to parse for rules. These should be absolute!
+      paths: glob.sync([
+        path.join(__dirname, '*.html'),
+        path.join(__dirname, 'src/components/*.jsx')
+      ]),
+      purifyOptions: {
+        whitelist: [ '*:not*' ]
+      },
+      minimize: true
+    })
   ],
   resolve: {
     modules: [
